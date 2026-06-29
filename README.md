@@ -1,13 +1,13 @@
 # 旅途 · AI 旅行规划助手
 
-基于 **NestJS 11 + LangGraph + Vue3** 构建的 AI 旅行规划助手，8 个专业工具协同工作。
+基于 **FastAPI + LangGraph + Vue3** 构建的 AI 旅行规划助手，8 个专业工具协同工作。
 
 ## 技术栈
 
 | 层级 | 技术 |
 |------|------|
-| 后端框架 | NestJS 11 |
-| AI 框架 | LangChain.js + LangGraph |
+| 后端框架 | FastAPI |
+| AI 框架 | LangChain + LangGraph（Python） |
 | 大模型 | Ollama（本地）/ DeepSeek（云端）二选一 |
 | 流式输出 | SSE（Server-Sent Events）|
 | 前端框架 | Vue3 Composition API + setup 语法糖 |
@@ -53,10 +53,12 @@ ollama pull qwen3.5:0.8b
 
 ```bash
 cd backend
-npm install
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
 cp .env.example .env   # 首次使用
 # 编辑 .env 选择大模型方式
-npm run start:dev
+python3 -m app.main
 ```
 
 看到以下输出说明启动成功：
@@ -81,12 +83,13 @@ npm run dev
 
 ```
 travel-agent/
-├── backend/                   ← NestJS 后端
-│   ├── src/
+├── backend/                   ← FastAPI 后端
+│   ├── app/
 │   │   ├── agent/             ← LangGraph Agent
 │   │   ├── tools/             ← 8 个旅行工具
 │   │   ├── memory/            ← 对话记忆
-│   │   └── config.ts          ← 模型配置（在这里切换模型）
+│   │   └── config.py          ← 模型配置（在这里切换模型）
+│   ├── requirements.txt
 │   └── .env.example
 │
 └── frontend/                  ← Vue3 前端
